@@ -1,0 +1,55 @@
+version: "3.7"
+
+services:
+  mainnet:
+    image: kilrau/bitcoind:latest
+    environment:
+      - USER_UID=1001
+      - USER_GID=1001
+    restart: always
+    volumes:
+      - /CHANGEME:/root/.bitcoin
+    ports:
+      - "8332:8332"
+      - "8333:8333"
+      - "28332:28332"
+      - "28333:28333"
+    command:
+      -blockfilterindex
+      -peerblockfilters
+      -rpcuser=CHANGEME
+      -rpcpassword=CHANGEME
+      -rpcport=8332
+      -rpcallowip=0.0.0.0/0
+      -rpcbind=0.0.0.0
+      -zmqpubrawblock=tcp://0.0.0.0:28332
+      -zmqpubrawtx=tcp://0.0.0.0:28333
+      -maxconnections=250
+      -maxuploadtarget=50000
+
+#  testnet:
+#    image: kilrau/bitcoind:latest
+#    environment:
+#      - USER_UID=1001
+#      - USER_GID=1001
+#    restart: always
+#    volumes:
+#      - /CHANGEME:/root/.bitcoin
+#    ports:
+#      - "18332:18332"
+#      - "18333:18333"
+#      - "38332:38332"
+#      - "38333:38333"
+#    command:
+#      -testnet
+#      -blockfilterindex
+#      -peerblockfilters
+#      -rpcuser=CHANGEME
+#      -rpcpassword=CHANGEME
+#      -rpcport=18332
+#      -rpcallowip=0.0.0.0/0
+#      -rpcbind=0.0.0.0  
+#      -zmqpubrawblock=tcp://0.0.0.0:38332
+#      -zmqpubrawtx=tcp://0.0.0.0:38333
+#      -maxconnections=250
+#      -maxuploadtarget=50000

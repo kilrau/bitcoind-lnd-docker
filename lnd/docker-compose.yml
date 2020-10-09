@@ -1,0 +1,16 @@
+version: "3.7"
+
+services:
+  mainnet:
+    image: kilrau/lnd:0.11.1-beta
+    environment:
+      - USER_UID=1001
+      - USER_GID=1001
+    restart: always
+    volumes:
+      - /home/CHANGEME/.lnd:/root/.lnd
+      - /CHANGEME:/root/.lnd-backup
+    ports:
+      - "9735:9735"
+      - "10009:10009"
+    network_mode: host
